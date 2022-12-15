@@ -31,7 +31,8 @@ export default function RegistrationScreen() {
   return (
   <TouchableWithoutFeedback onPress={keyboardHide}>
       <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"}>
-      <View style={{ ...styles.form, marginBottom: isShowKeyboard ? 32 : 66 }}>
+        <View style={{ ...styles.form, marginBottom: isShowKeyboard ? 32 : 78 }}>
+           {/* <View style={styles.userImg}></View> */}
       <Text style={styles.formTitle}>Registration</Text>
         <View>
         <TextInput
@@ -84,7 +85,7 @@ export default function RegistrationScreen() {
         </View>
         </KeyboardAvoidingView>
   </TouchableWithoutFeedback>
-  );
+);
 }
 
 const styles = StyleSheet.create({
@@ -99,6 +100,10 @@ const styles = StyleSheet.create({
   form: {
     // marginHorizontal: 16,
     width: 343,
+    backgroundColor: "#fff",
+   padding: 16,
+    borderRadius: 25,
+
   },
   formTitle: {
     fontSize: 30,
@@ -106,6 +111,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "#212121",
     marginBottom: 33,
+    marginTop: 92,
   },
   btn: {
     justifyContent: "center",
