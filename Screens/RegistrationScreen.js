@@ -1,4 +1,3 @@
-import { StatusBar } from 'expo-status-bar';
 import { useState } from "react";
 import {
   StyleSheet,
@@ -30,8 +29,7 @@ export default function RegistrationScreen() {
     };
 
   return (
-    <View style={styles.container}>
-      <TouchableWithoutFeedback onPress={keyboardHide}>
+  <TouchableWithoutFeedback onPress={keyboardHide}>
       <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"}>
       <View style={{ ...styles.form, marginBottom: isShowKeyboard ? 32 : 66 }}>
       <Text style={styles.formTitle}>Registration</Text>
@@ -85,19 +83,11 @@ export default function RegistrationScreen() {
       
         </View>
         </KeyboardAvoidingView>
-        </TouchableWithoutFeedback>
-      <StatusBar style="auto" />
-    </View>
+  </TouchableWithoutFeedback>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   input: {
     borderWidth: 1,
     borderColor: "#E8E8E8",
