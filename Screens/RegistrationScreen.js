@@ -8,7 +8,6 @@ import {
   Platform,
   KeyboardAvoidingView,
   Keyboard,
-  TouchableWithoutFeedback,
 } from 'react-native';
 
 const initialState = {
@@ -29,16 +28,16 @@ export default function RegistrationScreen() {
     };
 
   return (
-  <TouchableWithoutFeedback onPress={keyboardHide}>
-      <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"}>
-        <View style={{ ...styles.form, marginBottom: isShowKeyboard ? 32 : 78 }}>
-           {/* <View style={styles.userImg}></View> */}
-      <Text style={styles.formTitle}>Registration</Text>
+  <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"}>
+  <View style={styles.container}>
+        <View style={{ ...styles.form, marginBottom: isShowKeyboard ? 0 : 45}}>
+        <Text style={styles.formTitle}>Registration</Text>
         <View>
         <TextInput
         style={styles.input}
-        textAlign={"center"}
-        placeholder="Login"
+        textAlign={"left"}
+        placeholder={"Login"}
+        placeholderTextColor={"#BDBDBD"}
         onFocus={() => setIsShowKeyboard(true)}
         value={state.login}
         onChangeText={(value) =>
@@ -50,8 +49,9 @@ export default function RegistrationScreen() {
         <View>
         <TextInput
         style={styles.input}
-        textAlign={"center"}
-        placeholder="Email"
+        textAlign={"left"}
+        placeholder={"Email"}
+        placeholderTextColor={"#BDBDBD"}
         onFocus={() => setIsShowKeyboard(true)}
         value={state.email}
         onChangeText={(value) =>
@@ -64,8 +64,9 @@ export default function RegistrationScreen() {
         <TextInput
         style={styles.input}
         secureTextEntry={true}
-        textAlign={"center"}
-        placeholder="Password"
+        textAlign={"left"}
+        placeholder={"Password"}
+        placeholderTextColor={"#BDBDBD"}
         onFocus={() => setIsShowKeyboard(true)}
         value={state.password}
         onChangeText={(value) =>
@@ -81,37 +82,42 @@ export default function RegistrationScreen() {
         <Text style={styles.btnName}>Register</Text>
         </TouchableOpacity>
         <Text style={styles.bottomText}>Do you already have an account? Log In</Text>
-      
-        </View>
-        </KeyboardAvoidingView>
-  </TouchableWithoutFeedback>
+      </View>
+</View>  
+</KeyboardAvoidingView>
 );
 }
 
 const styles = StyleSheet.create({
-  input: {
-    borderWidth: 1,
-    borderColor: "#E8E8E8",
-    backgroundColor: "#F6F6F6",
-    borderRadius: 8,
-    marginBottom: 16,
-    height: 50,
+  container: {
+    width: 375,
+    height: 549,
+    borderRadius: 25,
+    backgroundColor: '#fff',
   },
   form: {
-    // marginHorizontal: 16,
-    width: 343,
-    backgroundColor: "#fff",
-   padding: 16,
-    borderRadius: 25,
-
+   marginHorizontal: 16,
   },
   formTitle: {
+    // fontFamily: "Roboto-Regular",
     fontSize: 30,
     fontWeight: "bold",
     textAlign: "center",
     color: "#212121",
     marginBottom: 33,
-    marginTop: 92,
+     marginTop: 92,
+     
+   
+  },
+  input: {
+    fontSize: 16,
+    borderWidth: 1,
+    borderColor: "#E8E8E8",
+    backgroundColor: "#F6F6F6",
+    borderRadius: 8,
+    marginBottom: 16,
+    padding: 16,
+    color: "#212121",
   },
   btn: {
     justifyContent: "center",
@@ -120,7 +126,8 @@ const styles = StyleSheet.create({
     marginTop: 27,
     marginBottom: 16,
     borderRadius: 100,
-    height: 50,
+    paddingTop: 16,
+    paddingBottom: 16,
   },
   btnName: {
     fontSize: 16,

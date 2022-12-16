@@ -8,7 +8,6 @@ TouchableOpacity,
 Platform,
 KeyboardAvoidingView,
 Keyboard,
-TouchableWithoutFeedback,
 } from 'react-native';
 
 const initialState = {
@@ -28,15 +27,17 @@ export default function LoginScreen() {
   };
     
 return (
-<TouchableWithoutFeedback onPress={keyboardHide}>
 <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"}>
-<View style={{ ...styles.form, marginBottom: isShowKeyboard ? 32 : 144 }}>
+<View style={{ ...styles.container, marginBottom: isShowKeyboard ? 0 : 111 }}>
+      
+<View style={styles.form}>
     <Text style={styles.formTitle}>Log In</Text>
     <View>
         <TextInput
         style={styles.input}
-        textAlign={"center"}
-        placeholder="Email"
+        textAlign={"left"}
+        placeholder={"Email"}
+        placeholderTextColor={"#BDBDBD"}
         onFocus={() => setIsShowKeyboard(true)}
         value={state.email}
         onChangeText={(value) =>
@@ -48,8 +49,9 @@ return (
         <TextInput
         style={styles.input}
         secureTextEntry={true}
-        textAlign={"center"}
-        placeholder="Password"
+        textAlign={"left"}
+        placeholder={"Password"}
+        placeholderTextColor={"#BDBDBD"}
         onFocus={() => setIsShowKeyboard(true)}
         value={state.password}
         onChangeText={(value) =>
@@ -65,16 +67,21 @@ return (
         <Text style={styles.btnName}>Log In</Text>
         </TouchableOpacity>
         <Text style={styles.bottomText}>Don't have an account yet? Register</Text>
+</View>             
 </View>
 </KeyboardAvoidingView>
-</TouchableWithoutFeedback>
-  );
+);
 }
 
 const styles = StyleSheet.create({
+container: {
+    width: 375,
+    height: 489,
+    borderRadius: 25,
+    backgroundColor: '#fff',
+},
 form: {
-    // marginHorizontal: 16,
-    width: 343,
+    marginHorizontal: 16,
 },
 formTitle: {
     fontSize: 30,
@@ -82,14 +89,17 @@ formTitle: {
     textAlign: "center",
     color: "#212121",
     marginBottom: 33,
+    marginTop: 92,
 },
 input: {
+    fontSize: 16,
     borderWidth: 1,
     borderColor: "#E8E8E8",
     backgroundColor: "#F6F6F6",
     borderRadius: 8,
     marginBottom: 16,
-    height: 50,
+    padding: 16,
+    color: "#212121",
 },
 btn: {
     justifyContent: "center",
@@ -98,7 +108,8 @@ btn: {
     marginTop: 27,
     marginBottom: 16,
     borderRadius: 100,
-    height: 50,
+    paddingTop: 16,
+    paddingBottom: 16,
 },
 btnName: {
     fontSize: 16,
@@ -108,5 +119,5 @@ bottomText: {
     fontSize: 16,
     color: "#1B4371",
     textAlign: "center",
-  },
+    },
 });
