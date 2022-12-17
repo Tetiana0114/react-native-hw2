@@ -19,7 +19,7 @@ export default function LoginScreen() {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [state, setState] = useState(initialState);
     
-  const keyboardHide = () => {
+  const onFormSubmit = () => {
   setIsShowKeyboard(false);
   Keyboard.dismiss();
   console.log(state);
@@ -61,7 +61,7 @@ return (
         <TouchableOpacity
         activeOpacity={0.8}
         style={styles.btn}
-        onPress={keyboardHide}
+        onPress={onFormSubmit}
         >
         <Text style={styles.btnName}>Log In</Text>
         </TouchableOpacity>

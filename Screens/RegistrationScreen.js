@@ -20,7 +20,7 @@ export default function RegistrationScreen() {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [state, setState] = useState(initialState);
 
-    const keyboardHide = () => {
+    const onFormSubmit = () => {
     setIsShowKeyboard(false);
     Keyboard.dismiss();
     console.log(state);
@@ -77,7 +77,7 @@ export default function RegistrationScreen() {
          <TouchableOpacity
               activeOpacity={0.8}
               style={styles.btn}
-              onPress={keyboardHide}
+              onPress={onFormSubmit}
         >
         <Text style={styles.btnName}>Register</Text>
         </TouchableOpacity>
