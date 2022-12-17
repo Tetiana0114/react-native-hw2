@@ -30,7 +30,7 @@ export default function RegistrationScreen() {
   return (
   <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"}>
   <View style={styles.container}>
-        <View style={{ ...styles.form, marginBottom: isShowKeyboard ? 0 : 45}}>
+        <View style={styles.form}>
         <Text style={styles.formTitle}>Registration</Text>
         <View>
         <TextInput
@@ -91,25 +91,23 @@ export default function RegistrationScreen() {
 const styles = StyleSheet.create({
   container: {
     width: 375,
-    height: 549,
     borderRadius: 25,
     backgroundColor: '#fff',
   },
   form: {
-   marginHorizontal: 16,
+    marginHorizontal: 16,
+    marginBottom: 45,
   },
   formTitle: {
-    // fontFamily: "Roboto-Regular",
+    fontFamily: "Roboto-Bold",
     fontSize: 30,
-    fontWeight: "bold",
     textAlign: "center",
     color: "#212121",
     marginBottom: 33,
-     marginTop: 92,
-     
-   
+    marginTop: 92,
   },
   input: {
+    fontFamily: "Roboto-Regular",
     fontSize: 16,
     borderWidth: 1,
     borderColor: "#E8E8E8",
@@ -130,10 +128,12 @@ const styles = StyleSheet.create({
     paddingBottom: 16,
   },
   btnName: {
+    fontFamily: "Roboto-Medium",
     fontSize: 16,
-    color: "#FFFFFF",   
+    color: "#FFFFFF",
   },
   bottomText: {
+    fontFamily: "Roboto-Regular",
     fontSize: 16,
     color: "#1B4371",
     textAlign: "center",

@@ -1,4 +1,4 @@
-// import React, {useState} from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import {
   StyleSheet,
@@ -7,26 +7,44 @@ import {
   Keyboard,
   TouchableWithoutFeedback,
 } from 'react-native';
+import * as Font from 'expo-font';
+import * as SplashScreen from 'expo-splash-screen';
+
 import RegistrationScreen  from './Screens/RegistrationScreen';
 import LoginScreen from './Screens/LoginScreen';
 
-// import * as Font from 'expo-font';
-// import { AppLoading } from 'expo';
-
-// const loadFonts = async () => {
-//   await Font.loadAsync({
-//     "Roboto-Regular": require('./assets/fonts/Roboto-Regular.ttf'),
-//     "Roboto-Medium": require('./assets/fonts/Roboto-Medium.ttf'),
-//   });
-// };
+SplashScreen.preventAutoHideAsync();
 
 export default function App() {
-//   const [isReady, setIsReady] = useState(false);
-//   if (!isReady) {
-//     return (
-//       <AppLoading startAsync={loadFonts} onFinish={() => setIsReady(true)} />
-//     );
-// }
+  const [appIsReady, setAppIsReady] = useState(false);
+  
+useEffect(() => {
+    async function prepare() {
+      try {
+      await Font.loadAsync({
+      "Roboto-Regular": require('./assets/fonts/Roboto-Regular.ttf'),
+      "Roboto-Medium": require('./assets/fonts/Roboto-Medium.ttf'),
+      "Roboto-Bold": require('./assets/fonts/Roboto-Bold.ttf'), 
+      });
+        await new Promise(resolve => setTimeout(resolve, 2000));
+      } catch (e) {
+        console.warn(e);
+      } finally {
+        setAppIsReady(true);
+      }
+    }
+    prepare();
+}, []);
+
+const onLayoutRootView = useCallback(async () => {
+    if (appIsReady) {
+    await SplashScreen.hideAsync();
+    }
+  }, [appIsReady]);
+
+  if (!appIsReady) {
+    return null;
+  }
   
   return (
 <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -35,6 +53,7 @@ export default function App() {
       style={styles.image}
       source={require("./assets/images/bg_img.jpg")}
         >
+
 <RegistrationScreen/>
 {/* <LoginScreen /> */}
           

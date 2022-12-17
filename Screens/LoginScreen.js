@@ -28,9 +28,8 @@ export default function LoginScreen() {
     
 return (
 <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"}>
-<View style={{ ...styles.container, marginBottom: isShowKeyboard ? 0 : 111 }}>
-      
-<View style={styles.form}>
+<View style={styles.container}>
+    <View style={styles.form}>
     <Text style={styles.formTitle}>Log In</Text>
     <View>
         <TextInput
@@ -76,22 +75,23 @@ return (
 const styles = StyleSheet.create({
 container: {
     width: 375,
-    height: 489,
     borderRadius: 25,
     backgroundColor: '#fff',
 },
 form: {
     marginHorizontal: 16,
+    marginBottom: 45,
 },
 formTitle: {
+    fontFamily: "Roboto-Bold",
     fontSize: 30,
-    fontWeight: "bold",
     textAlign: "center",
     color: "#212121",
     marginBottom: 33,
     marginTop: 92,
 },
 input: {
+    fontFamily: "Roboto-Regular",
     fontSize: 16,
     borderWidth: 1,
     borderColor: "#E8E8E8",
@@ -112,10 +112,12 @@ btn: {
     paddingBottom: 16,
 },
 btnName: {
+    fontFamily: "Roboto-Medium",
     fontSize: 16,
     color: "#FFFFFF",   
 },
 bottomText: {
+    fontFamily: "Roboto-Regular",
     fontSize: 16,
     color: "#1B4371",
     textAlign: "center",
