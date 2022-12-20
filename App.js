@@ -1,5 +1,6 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from "@react-navigation/native";
+
 import React, { useCallback, useEffect, useState } from 'react';
 import {} from "react-native";
 import { StatusBar } from 'expo-status-bar';
@@ -9,9 +10,11 @@ import { StatusBar } from 'expo-status-bar';
 
 import RegistrationScreen  from './Screens/auth/RegistrationScreen';
 import LoginScreen from './Screens/auth/LoginScreen';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 // SplashScreen.preventAutoHideAsync();
 const AuthStack = createNativeStackNavigator();
+
 
 export default function App() {
 //   const [appIsReady, setAppIsReady] = useState(false);
