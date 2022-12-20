@@ -8,6 +8,8 @@ TouchableOpacity,
 Platform,
 KeyboardAvoidingView,
 Keyboard,
+ImageBackground,
+TouchableWithoutFeedback,
 } from 'react-native';
 
 const initialState = {
@@ -15,7 +17,7 @@ const initialState = {
   password: "",
 };
 
-export default function LoginScreen() {
+export default function LoginScreen({ navigation }) {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [state, setState] = useState(initialState);
     
@@ -26,9 +28,15 @@ export default function LoginScreen() {
   setState(initialState);
   };
     
-return (
-<KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"}>
+    return (
+<TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
 <View style={styles.container}>
+<ImageBackground
+      style={styles.image}
+      source={require('../../assets/images/bg_img.jpg')}
+        >
+<KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"}>
+<View style={styles.formBox}>
     <View style={styles.form}>
     <Text style={styles.formTitle}>Log In</Text>
     <View>
@@ -65,15 +73,39 @@ return (
         >
         <Text style={styles.btnName}>Log In</Text>
         </TouchableOpacity>
-        <Text style={styles.bottomText}>Don't have an account yet? Register</Text>
+
+         <TouchableOpacity
+            onPress={() => navigation.navigate("Register")}
+             style={{
+                  alignSelf: "center",
+                }}
+            >
+            <Text style={styles.bottomText}>
+            Don't have an account yet?{" "}
+            <Text style={styles.bottomTextSpan}>Register</Text>
+            </Text>
+        </TouchableOpacity>                        
 </View>             
 </View>
-</KeyboardAvoidingView>
+    </KeyboardAvoidingView>
+    </ImageBackground>
+    </View>
+    </TouchableWithoutFeedback>
 );
 }
 
 const styles = StyleSheet.create({
+image: {
+    flex: 1,
+    resizeMode: "cover",
+    justifyContent: "center",
+    alignItems: "center",
+  },
 container: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+formBox: {
     width: 375,
     borderRadius: 25,
     backgroundColor: '#fff',
@@ -83,7 +115,7 @@ form: {
     marginBottom: 45,
 },
 formTitle: {
-    fontFamily: "Roboto-Bold",
+    // fontFamily: "Roboto-Bold",
     fontSize: 30,
     textAlign: "center",
     color: "#212121",
@@ -91,7 +123,7 @@ formTitle: {
     marginTop: 92,
 },
 input: {
-    fontFamily: "Roboto-Regular",
+    // fontFamily: "Roboto-Regular",
     fontSize: 16,
     borderWidth: 1,
     borderColor: "#E8E8E8",
@@ -106,20 +138,24 @@ btn: {
     alignItems: "center",
     backgroundColor: "#FF6C00",
     marginTop: 27,
-    marginBottom: 16,
+    marginBottom: 20,
     borderRadius: 100,
     paddingTop: 16,
     paddingBottom: 16,
 },
 btnName: {
-    fontFamily: "Roboto-Medium",
+    // fontFamily: "Roboto-Medium",
     fontSize: 16,
     color: "#FFFFFF",   
 },
 bottomText: {
-    fontFamily: "Roboto-Regular",
+    // fontFamily: "Roboto-Regular",
     fontSize: 16,
     color: "#1B4371",
-    textAlign: "center",
     },
+bottomTextSpan: {
+    // fontFamily: "Roboto-Medium",
+    fontSize: 17,
+    color: "#ff6347",
+},
 });
