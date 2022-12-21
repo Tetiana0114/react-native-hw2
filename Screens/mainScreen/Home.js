@@ -1,20 +1,32 @@
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+// import { StyleSheet } from "react-native";
+import PostsScreen from './PostsScreen';
+import CreatePostsScreen from './CreatePostsScreen';
+import ProfileScreen from './ProfileScreen';
 
-const Home = () => {
+const MainTab = createBottomTabNavigator();
+
+export const Home = () => {
   return (
-    <View style={styles.container}>
-      <Text>Home</Text>
-    </View>
+   <MainTab.Navigator>
+      <MainTab.Screen
+        name="Posts"
+        component={PostsScreen} />
+      <MainTab.Screen
+        name="Create"
+        component={CreatePostsScreen} />
+      <MainTab.Screen
+        name="Profile"
+        component={ProfileScreen} />
+    </MainTab.Navigator>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});
-
-export default Home;
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     justifyContent: "center",
+//     alignItems: "center",
+//   },
+// });
