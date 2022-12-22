@@ -3,6 +3,7 @@ import { Feather } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons'; 
 import { Fontisto } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 import { StyleSheet } from "react-native";
 
 import PostsScreen from './PostsScreen';
@@ -13,25 +14,35 @@ const MainTab = createBottomTabNavigator();
 
 export const Home = () => {
   return (
-    <MainTab.Navigator screenOptions={{ tabBarShowLabel: false }}>
+    <MainTab.Navigator screenOptions={{
+      tabBarShowLabel: false,
+      tabBarStyle: { height: 75 },
+      headerTitleStyle: {
+        color: "#212121",
+        fontFamily: 'Roboto-Medium',
+        },
+    }}>
       <MainTab.Screen
         name="Posts"
         component={PostsScreen}
         options={{
           tabBarIcon: ({ focused, size, color }) => (
-            <Fontisto name="nav-icon-grid" size={26} color={color}/>
+            <Fontisto name="nav-icon-grid" size={30} color={color}/>
           ),
           headerRight: () => (
-            <AntDesign name="logout" size={24} color="#ff4500" style={styles.logout} />
+            <AntDesign name="logout" size={30} color="#ff4500" style={styles.logout} />
           ),
         }}
       />
       <MainTab.Screen
-        name="Create"
+        name="Create post"
         component={CreatePostsScreen}
         options={{
           tabBarIcon: ({ focused, size, color }) => (
-           <Feather name="plus-circle" size={42} color="#ff4500" />
+           <Feather name="plus-circle" size={48} color="#ff4500" />
+          ),
+          headerLeft: ({ focused, size, color }) => (
+            <Ionicons name="arrow-back-circle-outline" size={30} color="#a9a9a9" style={styles.back}/>
           ),
         }}
       />
@@ -40,7 +51,7 @@ export const Home = () => {
       component={ProfileScreen}
       options={{
           tabBarIcon: ({ focused, size, color }) => (
-            <FontAwesome name="user" size={30} color={color} />
+            <FontAwesome name="user" size={34} color={color} />
           ),
         }}
       />
@@ -50,6 +61,9 @@ export const Home = () => {
 
 const styles = StyleSheet.create({
   logout: {
-  marginRight: 20,
+  marginRight: 24,
   },
+  back: {
+  marginLeft: 10,
+  }
 });
