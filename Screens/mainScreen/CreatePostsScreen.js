@@ -58,7 +58,7 @@ navigation.navigate("Posts", { photo });
     </Camera>
         <View>
           <TouchableOpacity style={styles.uploadBtn} onPress={sendPhoto}>
-          <Text style={styles.uploadText}>Upload photo</Text>
+          <Text style={styles.uploadBtnText}>Upload photo</Text>
         </TouchableOpacity>
         </View>
     </View>
@@ -109,7 +109,7 @@ uploadBtn: {
   justifyContent: "center",
   alignItems: "center",
   },  
-uploadText: {
+uploadBtnText: {
 // fontFamily: "Roboto-Medium",
   fontSize: 20,
   color: "#a9a9a9",
