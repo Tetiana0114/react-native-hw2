@@ -1,49 +1,60 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   StyleSheet,
   Text,
   Image,
   TouchableOpacity,
-  Button,
 } from "react-native";
 import { Camera } from "expo-camera";
+import * as Location from "expo-location";
 import { MaterialIcons } from '@expo/vector-icons'; 
 
 
 const CreatePostsScreen = ({ navigation }) => {
+  const [hasPermission, setHasPermission] = useState(null);
+  const [location, setLocation] = useState(null);
   const [camera, setCamera] = useState(null);
   const [photo, setPhoto] = useState(null);
-	const [permission, requestPermission] = Camera.useCameraPermissions();
 
-    const takePhoto = async () => {
-    const photo = await camera.takePictureAsync();
-    setPhoto(photo.uri);
-    console.log("photo", photo);
+  useEffect(() => {
+       (async () => {
+        await Location.requestForegroundPermissionsAsync();
+        const { status } = await Camera.requestCameraPermissionsAsync();
+        setHasPermission(status === "granted");
+    })();
+  }, []);
+
+
+  if (hasPermission === null) {
+    return <View />;
+  }
+  if (hasPermission === false) {
+    return <Text>No access to camera</Text>;
+  }
+
+  const takePhoto = async () => {
+  const photo = await camera.takePictureAsync();
+  let location = await Location.getCurrentPositionAsync();
+  const coords = {
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
+};
+setLocation(coords);
+setPhoto(photo.uri);
+console.log("location", coords);
+console.log("photo", photo);
   };
 
-  	if (!permission) {
-		return <View />;
-	}
-
-	if (!permission.granted) {
-		return (
-			<View style={styles.permissionContainer}>
-				<Text style={{ textAlign: 'center' }}>
-					Please, grant permission!
-				</Text>
-				<Button onPress={requestPermission} title="Grant permission" />
-			</View>
-		);
-  }
-  
 const sendPhoto = () => {
 navigation.navigate("Posts", { photo });
 };
 
   return (
     <View style={styles.container}>
-      <Camera style={styles.camera}  ref={setCamera}>
+      <Camera style={styles.camera}   ref={(ref) => {
+          setCamera(ref);
+        }}>
          {photo && (
           <View style={styles.takePhotoContainer}>
             <Image
@@ -68,11 +79,6 @@ navigation.navigate("Posts", { photo });
 const styles = StyleSheet.create({
 container: {
   flex: 1,
-},
-permissionContainer: {
-	flex: 1,
-	alignItems: 'center',
-	justifyContent: 'center'
 },
 camera: {
   marginHorizontal: 16,
