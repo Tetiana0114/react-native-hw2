@@ -41,7 +41,7 @@ const CreatePostsScreen = ({ navigation }) => {
 
   const takePhoto = async () => {
   const photo = await camera.takePictureAsync();
-  let location = await Location.getCurrentPositionAsync();
+  const location = await Location.getCurrentPositionAsync();
   const coords = {
         latitude: location.coords.latitude,
         longitude: location.coords.longitude,

@@ -4,7 +4,7 @@ import { } from "react-native";
 import { StatusBar } from 'expo-status-bar';
 import * as Font from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
-import { useRoute } from './router';
+import { useRoute } from './src/router';
 
 SplashScreen.preventAutoHideAsync();
 

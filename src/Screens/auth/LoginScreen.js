@@ -33,7 +33,7 @@ export default function LoginScreen({ navigation }) {
 <View style={styles.container}>
 <ImageBackground
       style={styles.image}
-      source={require('../../assets/images/bg_img.jpg')}
+      source={require('../../../assets/images/bg_img.jpg')}
         >
 <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"}>
 <View style={styles.formBox}>
