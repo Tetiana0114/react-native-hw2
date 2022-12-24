@@ -1,16 +1,15 @@
 import React, { useState, useEffect }from "react";
-import { View, StyleSheet, FlatList, Image, Button } from "react-native";
+import { View, StyleSheet, FlatList, Image, TouchableOpacity, Text } from "react-native";
+import { EvilIcons } from '@expo/vector-icons'; 
 
 const DefaultScreen = ({ route, navigation }) => {
   const [posts, setPosts] = useState([]);
-  // console.log("route.params", route.params);
   
   useEffect(() => {
     if (route.params) {
       setPosts((prev) => [...prev, route.params]);
     }
   }, [route.params]);
-  // console.log("posts", posts);
 
   return (
     <View style={styles.container}>
@@ -30,23 +29,43 @@ const DefaultScreen = ({ route, navigation }) => {
               source={{ uri: item.photo }}
               style={{ width: 343, height: 240 }}
             />
+
+            <Text style={styles.title}>Title</Text>
+            <View style={styles.postNav}> 
+                <TouchableOpacity onPress={() => navigation.navigate("Comments")}>
+                 <EvilIcons name="comment" size={48} color="#6495ed" /> 
+                </TouchableOpacity>
+
+                <TouchableOpacity  onPress={() => navigation.navigate("Map")} >
+                <EvilIcons name="location" size={48} color="#FF6C00" />
+                </TouchableOpacity>
+            </View>
+
           </View>
         )}
           />
-    <Button title="go to map" onPress={() => navigation.navigate("Map")} />
-    <Button title="go to Comments" onPress={() => navigation.navigate("Comments")} />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-  },
-  list: {
-    marginTop: 32,
-  }
+container: {
+  flex: 1,
+  justifyContent: "center",
+},
+list: {
+  marginTop: 32,
+},
+postNav: {
+  marginHorizontal: 16,
+  flexDirection: "row",
+  marginTop: 10,
+},
+title: {
+  fontSize: 16,
+  fontWeight: "bold",
+  color: "#212121", 
+}
 });
 
 export default DefaultScreen;

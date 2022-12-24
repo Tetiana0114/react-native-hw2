@@ -5,10 +5,15 @@ import {
   Text,
   Image,
   TouchableOpacity,
+  TextInput,
+  Platform,
+KeyboardAvoidingView,
+Keyboard,
+TouchableWithoutFeedback,
 } from "react-native";
 import { Camera } from "expo-camera";
 import * as Location from "expo-location";
-import { MaterialIcons } from '@expo/vector-icons'; 
+import { MaterialIcons } from '@expo/vector-icons';
 
 
 const CreatePostsScreen = ({ navigation }) => {
@@ -16,6 +21,7 @@ const CreatePostsScreen = ({ navigation }) => {
   const [location, setLocation] = useState(null);
   const [camera, setCamera] = useState(null);
   const [photo, setPhoto] = useState(null);
+  const [isShowKeyboard, setIsShowKeyboard] = useState(false);
 
   useEffect(() => {
        (async () => {
@@ -47,11 +53,13 @@ console.log("photo", photo);
   };
 
 const sendPhoto = () => {
-navigation.navigate("DefaultScreen", { photo });
+navigation.navigate("DefaultScreen", { photo, location });
 };
 
   return (
-    <View style={styles.container}>
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()} style={styles.pressContainer}>
+      <View style={styles.container}>
+        <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"}>
       <Camera style={styles.camera}   ref={(ref) => {
           setCamera(ref);
         }}>
@@ -67,16 +75,36 @@ navigation.navigate("DefaultScreen", { photo });
           <MaterialIcons name="photo-camera" size={46} color="#a9a9a9" />
           </TouchableOpacity>
     </Camera>
-        <View>
+      <View style={styles.form}>
+         <TextInput
+            style={styles.input}
+            textAlign={"left"}
+            placeholder={"Title..."}
+            placeholderTextColor={"#BDBDBD"}
+            onFocus={() => setIsShowKeyboard(true)}
+            />
+
+            <TextInput
+            style={styles.input}
+            textAlign={"left"}
+            placeholder={"Location..."}
+            placeholderTextColor={"#BDBDBD"}
+            onFocus={() => setIsShowKeyboard(true)}
+            />
           <TouchableOpacity style={styles.uploadBtn} onPress={sendPhoto}>
-          <Text style={styles.uploadBtnText}>Upload photo</Text>
+          <Text style={styles.uploadBtnText}>Publish photo</Text>
         </TouchableOpacity>
-        </View>
-    </View>
+      </View>
+          </KeyboardAvoidingView>
+      </View>
+      </TouchableWithoutFeedback>
   );
 };
 
 const styles = StyleSheet.create({
+pressContainer: {
+  flex: 1,
+},
 container: {
   flex: 1,
 },
@@ -103,23 +131,31 @@ snapContainer: {
   borderRadius: 50,
   justifyContent: "center",
   alignItems: "center",
-  },
-
+},
 uploadBtn: {
-  marginHorizontal: 30,
-  height: 40,
-  borderWidth: 2,
-  borderColor: "#a9a9a9",
-  borderRadius: 10,
-  marginTop: 20,
+  marginHorizontal: 16,
+  padding: 12,
+  backgroundColor: "#FF6C00", 
   justifyContent: "center",
   alignItems: "center",
-  },  
+  marginTop: 10,
+  borderRadius: 100,
+},  
 uploadBtnText: {
-// fontFamily: "Roboto-Medium",
   fontSize: 20,
-  color: "#a9a9a9",
-  },
+  color: "#fff",
+},
+form: {
+  marginTop: 10,
+  marginHorizontal: 16,
+},
+input: {
+  fontSize: 16,
+  borderBottomWidth: 2,
+  borderBottomColor: "#E8E8E8",
+  padding: 10,
+  marginBottom: 10,
+},
 });
 
 export default CreatePostsScreen;

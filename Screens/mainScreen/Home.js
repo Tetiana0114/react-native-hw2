@@ -1,9 +1,5 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Feather } from '@expo/vector-icons'; 
-import { FontAwesome } from '@expo/vector-icons'; 
-import { Fontisto } from '@expo/vector-icons';
-import { AntDesign } from '@expo/vector-icons';
-// import { Ionicons } from '@expo/vector-icons';
+import { Feather, FontAwesome, Fontisto, AntDesign } from '@expo/vector-icons'; 
 import { StyleSheet } from "react-native";
 
 import PostsScreen from './PostsScreen';
@@ -19,7 +15,7 @@ export const Home = () => {
       tabBarStyle: { height: 75 },
       headerTitleStyle: {
         color: "#212121",
-        // fontFamily: 'Roboto-Medium',
+        fontFamily: 'Roboto-Medium',
         },
     }}>
       <MainTab.Screen
@@ -41,9 +37,6 @@ export const Home = () => {
           tabBarIcon: ({ focused, size, color }) => (
            <Feather name="plus-circle" size={48} color="#ff4500" />
           ),
-        //   headerLeft: ({ focused, size, color }) => (
-        //  <Ionicons name="arrow-back-circle-outline" size={30} color="#a9a9a9" style={styles.back}/>
-        //   ),
         }}
       />
       <MainTab.Screen
@@ -63,7 +56,4 @@ const styles = StyleSheet.create({
   logout: {
   marginRight: 24,
   },
-  // back: {
-  // marginLeft: 10,
-  // }
 });
