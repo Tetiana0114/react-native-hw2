@@ -47,7 +47,7 @@ console.log("photo", photo);
   };
 
 const sendPhoto = () => {
-navigation.navigate("Posts", { photo });
+navigation.navigate("DefaultScreen", { photo });
 };
 
   return (
