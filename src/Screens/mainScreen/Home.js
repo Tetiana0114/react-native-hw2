@@ -15,7 +15,7 @@ export const Home = () => {
       tabBarStyle: { height: 75 },
       headerTitleStyle: {
         color: "#212121",
-        fontFamily: 'Roboto-Medium',
+        // fontFamily: 'Roboto-Medium',
         },
     }}>
       <MainTab.Screen

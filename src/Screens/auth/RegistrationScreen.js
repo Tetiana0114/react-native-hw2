@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
     marginBottom: 45,
   },
   formTitle: {
-    fontFamily: "Roboto-Bold",
+    // fontFamily: "Roboto-Bold",
     fontSize: 30,
     textAlign: "center",
     color: "#212121",
@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
     paddingBottom: 16,
   },
   btnName: {
-    fontFamily: "Roboto-Medium",
+    // fontFamily: "Roboto-Medium",
     fontSize: 16,
     color: "#FFFFFF",
   },
@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
     color: "#1B4371",
   },
   bottomTextSpan: {
-    fontFamily: "Roboto-Medium",
+    // fontFamily: "Roboto-Medium",
     fontSize: 17,
     color: "#ff6347",
   },
