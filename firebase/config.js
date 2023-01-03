@@ -1,9 +1,11 @@
-import firebase from "firebase";
-import "firebase/auth";
+import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyBKQwLQZiUyI3pcHakqLzISoJaZpa0ndIo",
   authDomain: "react-native-project-c9ea6.firebaseapp.com",
+  databaseURL: "https://react-native-project-c9ea6-default-rtdb.europe-west1.firebasedatabase.app",
   projectId: "react-native-project-c9ea6",
   storageBucket: "react-native-project-c9ea6.appspot.com",
   messagingSenderId: "727640725487",
@@ -11,8 +13,5 @@ const firebaseConfig = {
   measurementId: "G-Z76YXVFJWJ"
 };
 
-firebase.initializeApp(firebaseConfig);
-
-const auth = firebase.auth();
-
-export { auth };
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
