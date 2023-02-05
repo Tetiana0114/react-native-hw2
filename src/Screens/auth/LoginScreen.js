@@ -11,6 +11,8 @@ Keyboard,
 ImageBackground,
 TouchableWithoutFeedback,
 } from 'react-native';
+import { useDispatch } from "react-redux";
+import { authSignInUser } from "../../../redux/auth/authOperations";
 
 const initialState = {
   email: "",
@@ -19,12 +21,15 @@ const initialState = {
 
 export default function LoginScreen({ navigation }) {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
-  const [state, setState] = useState(initialState);
+    const [state, setState] = useState(initialState);
+    
+    const dispatch = useDispatch();
     
   const onFormSubmit = () => {
   setIsShowKeyboard(false);
   Keyboard.dismiss();
   console.log(state);
+  dispatch(authSignInUser(state));
   setState(initialState);
   };
     

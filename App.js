@@ -4,14 +4,18 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { } from "react-native";
 import { StatusBar } from 'expo-status-bar';
 import { store } from './redux/store';
+import { useRoute } from './src/router';
+import { auth } from "./firebase/config";
 // import * as Font from 'expo-font';
 // import * as SplashScreen from 'expo-splash-screen';
-import { useRoute } from './src/router';
 
 // SplashScreen.preventAutoHideAsync();
 
 export default function App() {
 //   const [appIsReady, setAppIsReady] = useState(false);
+const [user, setUser] = useState(null);
+  
+auth.onAuthStateChanged((user) => setUser(user));
   
 // useEffect(() => {
 //     async function prepare() {
@@ -42,7 +46,8 @@ export default function App() {
 //   }
   
 // const routing = useRoute({});
-const routing = useRoute(null);
+// const routing = useRoute(null);
+const routing = useRoute(user);
   
   return (
      <Provider store={store}>
