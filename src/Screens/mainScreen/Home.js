@@ -1,6 +1,7 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Feather, FontAwesome, Fontisto, AntDesign } from '@expo/vector-icons'; 
+import { Feather, FontAwesome, Fontisto, AntDesign } from '@expo/vector-icons';
 import { StyleSheet } from "react-native";
+import { auth } from "../../../firebase/config";
 
 import PostsScreen from './PostsScreen';
 import CreatePostsScreen from './CreatePostsScreen';
@@ -26,7 +27,7 @@ export const Home = () => {
             <Fontisto name="nav-icon-grid" size={30} color={color}/>
           ),
           headerRight: () => (
-            <AntDesign name="logout" size={30} color="#ff4500" style={styles.logout} />
+            <AntDesign name="logout" size={30} color="#ff4500" style={styles.logout} onPress={() => auth.signOut()}/>
           ),
         }}
       />
