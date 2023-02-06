@@ -1,11 +1,8 @@
 import { Provider } from "react-redux";
-import { NavigationContainer } from "@react-navigation/native";
 import React, { useCallback, useEffect, useState } from 'react';
 import { } from "react-native";
-import { StatusBar } from 'expo-status-bar';
 import { store } from './redux/store';
-import { useRoute } from './src/router';
-import { auth } from "./firebase/config";
+import Main from './src/Components/Main';
 // import * as Font from 'expo-font';
 // import * as SplashScreen from 'expo-splash-screen';
 
@@ -13,9 +10,6 @@ import { auth } from "./firebase/config";
 
 export default function App() {
 //   const [appIsReady, setAppIsReady] = useState(false);
-const [user, setUser] = useState(null);
-  
-auth.onAuthStateChanged((user) => setUser(user));
   
 // useEffect(() => {
 //     async function prepare() {
@@ -45,16 +39,9 @@ auth.onAuthStateChanged((user) => setUser(user));
 //     return null;
 //   }
   
-// const routing = useRoute({});
-// const routing = useRoute(null);
-const routing = useRoute(user);
-  
   return (
-     <Provider store={store}>
-    <NavigationContainer>
-      {routing}
-      <StatusBar style="auto" />
-      </NavigationContainer>
-      </Provider>
+    <Provider store={store}>
+    <Main />
+    </Provider>
   );
 }
