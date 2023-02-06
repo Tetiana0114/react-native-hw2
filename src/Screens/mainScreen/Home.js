@@ -1,7 +1,8 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Feather, FontAwesome, Fontisto, AntDesign } from '@expo/vector-icons';
 import { StyleSheet } from "react-native";
-import { auth } from "../../../firebase/config";
+import { useDispatch } from "react-redux";
+import { authSignOutUser } from '../../../redux/auth/authOperations';
 
 import PostsScreen from './PostsScreen';
 import CreatePostsScreen from './CreatePostsScreen';
@@ -10,6 +11,12 @@ import ProfileScreen from './ProfileScreen';
 const MainTab = createBottomTabNavigator();
 
 export const Home = () => {
+  const dispatch = useDispatch();
+
+  const signOut = () => {
+    dispatch(authSignOutUser());
+  };
+
   return (
     <MainTab.Navigator screenOptions={{
       tabBarShowLabel: false,
@@ -27,7 +34,7 @@ export const Home = () => {
             <Fontisto name="nav-icon-grid" size={30} color={color}/>
           ),
           headerRight: () => (
-            <AntDesign name="logout" size={30} color="#ff4500" style={styles.logout} onPress={() => auth.signOut()}/>
+            <AntDesign name="logout" size={30} color="#ff4500" style={styles.logout} onPress={signOut}/>
           ),
         }}
       />
