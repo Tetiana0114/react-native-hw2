@@ -14,6 +14,8 @@ TouchableWithoutFeedback,
 import { Camera } from "expo-camera";
 import * as Location from "expo-location";
 import { MaterialIcons } from '@expo/vector-icons';
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+// import { fireStore } from "../../../firebase/config";
 
 
 const CreatePostsScreen = ({ navigation }) => {
@@ -53,8 +55,21 @@ console.log("photo", photo);
   };
 
 const sendPhoto = () => {
+uploadPhotoToServer();
 navigation.navigate("DefaultScreen", { photo, location });
-};
+  };
+  
+const uploadPhotoToServer = async () => {
+  const response = await fetch(photo);
+  const file = await response.blob();
+
+  const photoId = Date.now().toString();
+
+  const data = ref(getStorage(), `postImages/${photoId}`);
+  await uploadBytes(data, file);
+  const processedPhoto = await getDownloadURL(data);
+  console.log("processedPhoto", processedPhoto);
+  };
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()} style={styles.pressContainer}>
