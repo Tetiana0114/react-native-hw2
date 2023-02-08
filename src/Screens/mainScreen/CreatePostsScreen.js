@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import {
   View,
   StyleSheet,
@@ -15,15 +16,20 @@ import { Camera } from "expo-camera";
 import * as Location from "expo-location";
 import { MaterialIcons } from '@expo/vector-icons';
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
-// import { fireStore } from "../../../firebase/config";
+import { fireStore } from "../../../firebase/config";
+import { collection, addDoc } from "firebase/firestore";
 
 
 const CreatePostsScreen = ({ navigation }) => {
   const [hasPermission, setHasPermission] = useState(null);
   const [location, setLocation] = useState(null);
+  const [locationName, setLocationName] = useState(null);
   const [camera, setCamera] = useState(null);
   const [photo, setPhoto] = useState(null);
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
+  const [title, setTitle] = useState("");
+  
+  const { userId, login } = useSelector((state) => state.auth);
 
   useEffect(() => {
        (async () => {
@@ -33,7 +39,6 @@ const CreatePostsScreen = ({ navigation }) => {
     })();
   }, []);
 
-
   if (hasPermission === null) {
     return <View />;
   }
@@ -41,22 +46,32 @@ const CreatePostsScreen = ({ navigation }) => {
     return <Text>No access to camera</Text>;
   }
 
-  const takePhoto = async () => {
+const takePhoto = async () => {
   const photo = await camera.takePictureAsync();
   const location = await Location.getCurrentPositionAsync();
   const coords = {
         latitude: location.coords.latitude,
         longitude: location.coords.longitude,
 };
-setLocation(coords);
-setPhoto(photo.uri);
-console.log("location", coords);
-console.log("photo", photo);
+  setLocation(coords);
+  setPhoto(photo.uri);
+  console.log("location", coords);
+  console.log("photo", photo);
   };
 
 const sendPhoto = () => {
-uploadPhotoToServer();
-navigation.navigate("DefaultScreen", { photo, location });
+  uploadPostToServer();
+  navigation.navigate("DefaultScreen", { photo, location });
+  };
+
+const uploadPostToServer = async () => {
+  const photo = await uploadPhotoToServer();
+  const newPost = { photo, title, location, locationName, userId, login };
+    try {
+      const createPost = await addDoc(collection(fireStore, "posts"), newPost);
+    } catch (err) {
+      console.error(err);
+    }
   };
   
 const uploadPhotoToServer = async () => {
@@ -69,7 +84,9 @@ const uploadPhotoToServer = async () => {
   await uploadBytes(data, file);
   const processedPhoto = await getDownloadURL(data);
   console.log("processedPhoto", processedPhoto);
+  return processedPhoto;
   };
+
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()} style={styles.pressContainer}>
@@ -91,7 +108,8 @@ const uploadPhotoToServer = async () => {
           </TouchableOpacity>
     </Camera>
       <View style={styles.form}>
-         <TextInput
+            <TextInput
+            onChangeText={setTitle} 
             style={styles.input}
             textAlign={"left"}
             placeholder={"Title..."}
@@ -100,6 +118,7 @@ const uploadPhotoToServer = async () => {
             />
 
             <TextInput
+            onChangeText={setLocationName}
             style={styles.input}
             textAlign={"left"}
             placeholder={"Location..."}
