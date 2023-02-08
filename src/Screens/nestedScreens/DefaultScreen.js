@@ -36,13 +36,13 @@ const DefaultScreen = ({ route, navigation }) => {
               style={{ width: 343, height: 240 }}
             />
 
-            <Text style={styles.title}>Title</Text>
+            <Text style={styles.title}>{item.title}</Text>
             <View style={styles.postNav}> 
                 <TouchableOpacity onPress={() => navigation.navigate("Comments")}>
                  <EvilIcons name="comment" size={48} color="#6495ed" /> 
                 </TouchableOpacity>
 
-                <TouchableOpacity  onPress={() => navigation.navigate("Map")} >
+                <TouchableOpacity  onPress={() => navigation.navigate("Map", { location: item.location })} >
                 <EvilIcons name="location" size={48} color="#FF6C00" />
                 </TouchableOpacity>
             </View>
