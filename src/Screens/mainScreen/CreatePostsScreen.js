@@ -61,7 +61,7 @@ const takePhoto = async () => {
 
 const sendPhoto = () => {
   uploadPostToServer();
-  navigation.navigate("DefaultScreen", { photo, location });
+  navigation.navigate("DefaultScreen");
   };
 
 const uploadPostToServer = async () => {

@@ -1,15 +1,21 @@
 import React, { useState, useEffect }from "react";
 import { View, StyleSheet, FlatList, Image, TouchableOpacity, Text } from "react-native";
-import { EvilIcons } from '@expo/vector-icons'; 
+import { EvilIcons } from '@expo/vector-icons';
+import { fireStore } from "../../../firebase/config";
+import { collection, onSnapshot } from "firebase/firestore";
 
 const DefaultScreen = ({ route, navigation }) => {
   const [posts, setPosts] = useState([]);
-  
+
+  const getUserPosts = async () => {
+    onSnapshot(collection(fireStore, "posts"), (data) => 
+    setPosts(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
+    );
+  };
+    
   useEffect(() => {
-    if (route.params) {
-      setPosts((prev) => [...prev, route.params]);
-    }
-  }, [route.params]);
+    getUserPosts();
+  }, []);
 
   return (
     <View style={styles.container}>
