@@ -1,8 +1,9 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Feather, FontAwesome, Fontisto, AntDesign } from '@expo/vector-icons';
-import { StyleSheet } from "react-native";
+import { StyleSheet, Text } from "react-native";
 import { useDispatch } from "react-redux";
 import { authSignOutUser } from '../../../redux/auth/authOperations';
+import { useSelector } from "react-redux";
 
 import PostsScreen from './PostsScreen';
 import CreatePostsScreen from './CreatePostsScreen';
@@ -12,6 +13,7 @@ const MainTab = createBottomTabNavigator();
 
 export const Home = () => {
   const dispatch = useDispatch();
+  const { login } = useSelector((state) => state.auth);
 
   const signOut = () => {
     dispatch(authSignOutUser());
@@ -23,7 +25,6 @@ export const Home = () => {
       tabBarStyle: { height: 75 },
       headerTitleStyle: {
         color: "#212121",
-        // fontFamily: 'Roboto-Medium',
         },
     }}>
       <MainTab.Screen
@@ -53,6 +54,9 @@ export const Home = () => {
       options={{
           tabBarIcon: ({ focused, size, color }) => (
             <FontAwesome name="user" size={34} color={color} />
+        ),
+          headerRight: () => (
+           <Text style={styles.user}>Welcome, {login}!</Text>
           ),
         }}
       />
@@ -61,7 +65,12 @@ export const Home = () => {
 };
 
 const styles = StyleSheet.create({
-  logout: {
+logout: {
   marginRight: 24,
   },
+user: {
+  fontSize: 20,
+  marginRight: 24,
+  color: "#FF6C00",
+  }
 });

@@ -120,7 +120,6 @@ form: {
     marginBottom: 45,
 },
 formTitle: {
-    // fontFamily: "Roboto-Bold",
     fontSize: 30,
     textAlign: "center",
     color: "#212121",
@@ -148,7 +147,7 @@ btn: {
     paddingBottom: 16,
 },
 btnName: {
-    // fontFamily: "Roboto-Medium",
+    fontFamily: "Roboto-Medium",
     fontSize: 16,
     color: "#FFFFFF",   
 },
@@ -157,7 +156,7 @@ bottomText: {
     color: "#1B4371",
     },
 bottomTextSpan: {
-    // fontFamily: "Roboto-Medium",
+    fontFamily: "Roboto-Medium",
     fontSize: 17,
     color: "#ff6347",
 },

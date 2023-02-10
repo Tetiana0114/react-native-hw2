@@ -8,9 +8,13 @@ const DefaultScreen = ({ route, navigation }) => {
   const [posts, setPosts] = useState([]);
 
   const getUserPosts = async () => {
+    try {
     onSnapshot(collection(fireStore, "posts"), (data) => 
     setPosts(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
     );
+    } catch (err) {
+       console.error(err);  
+    }
   };
     
   useEffect(() => {
@@ -70,8 +74,8 @@ postNav: {
 title: {
   fontSize: 16,
   fontWeight: "bold",
-  color: "#212121", 
-}
+  color: "#212121",
+  },
 });
 
 export default DefaultScreen;

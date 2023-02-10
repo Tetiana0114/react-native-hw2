@@ -39,6 +39,9 @@ const CommentsScreen = ({ route }) => {
   };
    
   const addComment = async () => {
+     if (comment === "") {
+      return;
+    }
     const newComment = { comment, author: login };
     try {
       const post = doc(fireStore, "posts", postId);
